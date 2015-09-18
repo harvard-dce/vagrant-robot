@@ -1,0 +1,16 @@
+# input
+#   - mandatory
+#       * target_username: user to config env to
+#
+---
+
+    - name: transfer the install scripts
+      become_user: "{{ target_username }}"
+      template: src="{{ target_username }}-install.sh.j2"
+        dest="/tmp/{{ target_username }}-install.sh"
+        mode=0700
+
+    - name: run script
+      become_user: "{{ target_username }}"
+      shell: "/tmp/{{ target_username }}-install.sh"
+

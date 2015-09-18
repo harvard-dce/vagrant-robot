@@ -1,0 +1,5 @@
+---
+
+- name: set timezone to 'America/New_York'
+  command: "timedatectl set-timezone America/New_York"
+

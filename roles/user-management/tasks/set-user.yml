@@ -1,0 +1,34 @@
+# input
+#   - mandatory
+#       * create_user_name: username to be created
+#           note that the pub ssh key is pulled from git, so it should be a git username
+#
+#   - optional
+#       * create_user_id: uid for username, if you want to specify one
+#           when not present, let it be assigned by useradd command
+#
+---
+
+    - name: create group nmaekawa
+      group: name='{{ create_user_name }}' gid='{{ create_user_id }}' state=present
+      when: create_user_id is defined
+
+    - name: create user nmaekawa
+      user: name='{{ create_user_name }}' group='{{ create_user_name }}'
+        uid='{{ create_user_id }}'
+        shell=/bin/bash
+        state=present
+      when: create_user_id is defined
+
+    - name: create user nmaekawa
+      user: name='{{ create_user_name }}'
+        shell=/bin/bash
+        state=present
+
+    - name: give sudo powers to user
+      lineinfile: "dest=/etc/sudoers state=present regexp='^{{ create_user_name }}' line='{{ create_user_name }}   ALL=(ALL)   NOPASSWD:   ALL' validate='visudo -cf %s'"
+
+    - name: copy ssh pub to authorized_keys
+      authorized_key: user='{{ create_user_name }}' key='https://github.com/{{ create_user_name }}.keys'
+
+

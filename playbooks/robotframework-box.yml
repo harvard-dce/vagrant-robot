@@ -1,0 +1,13 @@
+---
+
+
+- hosts: all
+  remote_user: "{{ r_user | default('vagrant') }}"
+  sudo: yes
+
+  tasks:
+    - include: ../roles/general-box-setup/tasks/timezone.yml
+    - include: ../roles/packages/tasks/base.yml
+    - include: ../roles/packages/tasks/robotframework.yml
+    - include: ../roles/user-management/tasks/set-user.yml create_user_name=nmaekawa create_user_id=2133
+    - include: ../roles/user-management/tasks/set-user-env.yml target_username=nmaekawa

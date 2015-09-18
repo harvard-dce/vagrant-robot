@@ -1,0 +1,17 @@
+---
+
+    - name: update apt cache
+      apt: update_cache=Yes
+
+    - name: upgrade all packages
+      apt: upgrade=dist
+
+    - name: git
+      apt: name='git-all' state=present
+
+    - name: pip
+      apt: name='python-pip' state=present
+
+
+
+

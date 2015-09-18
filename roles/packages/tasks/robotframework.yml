@@ -1,0 +1,28 @@
+---
+
+    - name: robotframework
+      pip: name='robotframework' state=present
+
+    - name: Selenium2Library
+      pip: name='robotframework-selenium2library' state=present
+
+    - name: XvfbRobot
+      pip: name='robotframework-xvfb'
+
+    - name: java 1.7 (for selenium)
+      apt: name='{{ item }}' state=present
+      with_items:
+        - openjdk-7-jdk
+        - openjdk-7-jre
+        - openjdk-7-dbg
+        - openjdk-7-doc
+
+    - name: xvfb (headless browser)
+      apt: name='xvfb' state=present
+
+    - name: firefox
+      apt: name='firefox' state=present
+
+
+
+
