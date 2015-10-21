@@ -4,13 +4,13 @@
 #
 ---
 
-    - name: transfer the install scripts
+    - name: transfer the setup-env script
       become_user: "{{ target_username }}"
       template: src="{{ target_username }}-install.sh.j2"
         dest="/tmp/{{ target_username }}-install.sh"
         mode=0700
 
-    - name: run script
+    - name: run setup-env script
       become_user: "{{ target_username }}"
       shell: "/tmp/{{ target_username }}-install.sh"
 
